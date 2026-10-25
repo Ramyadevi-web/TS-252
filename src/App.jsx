@@ -1,28 +1,42 @@
 import React, { useState } from 'react';
-import ToddyLoader from './components/ToddyPourLoader';
-import AuthScreen from './components/AuthScreen';
-import DetailsForm from './components/DetailsForm';
-import VIPHome from './components/VIPHome';
-import StandardHome from './components/StandardHome';
-import './app.css';
+import ToddyLoader from './components/ToddyPourLoader.jsx';
+import AuthScreen from './components/AuthScreen.jsx';
+import DetailsForm from './components/DetailsForm.jsx';
+import VIPHome from './components/VIPHome.jsx';
+import StandardHome from './components/StandardHome.jsx';
+import './App.css';
 
 export default function App() {
   const [step, setStep] = useState('LOADER'); // LOADER | AUTH | FORM | VIP_HOME | STANDARD_HOME
-  const [authType, setAuthType] = useState(null); // 'voice' | 'username'
-  const [isFirstTime, setIsFirstTime] = useState(true); // Toggle based on backend/storage
+  const [authType, setAuthType] = useState('regular'); // 'vip' | 'regular'
+  const [prefilledMobile, setPrefilledMobile] = useState('');
 
   const handleVoiceSuccess = () => {
-    setAuthType('voice');
-    setStep(isFirstTime ? 'FORM' : 'VIP_HOME');
+    setAuthType('vip');
+    setStep('VIP_HOME');
   };
 
   const handleUsernameSuccess = () => {
-    setAuthType('username');
-    setStep(isFirstTime ? 'FORM' : 'STANDARD_HOME');
+    setAuthType('regular');
+    setStep('STANDARD_HOME');
+  };
+
+  // VIP Circle Button routing logic based on backend check
+  const handleVipCheck = (identifier, isRegistered) => {
+    setAuthType('vip');
+    setPrefilledMobile(identifier);
+
+    if (isRegistered) {
+      // Direct access to VIP Home for registered members
+      setStep('VIP_HOME');
+    } else {
+      // Route unregistered members to Details Form registration
+      setStep('FORM');
+    }
   };
 
   const handleFormComplete = () => {
-    setStep(authType === 'voice' ? 'STANDARD_HOME' : 'VIP_HOME');
+    setStep(authType === 'vip' ? 'VIP_HOME' : 'STANDARD_HOME');
   };
 
   return (
@@ -32,9 +46,16 @@ export default function App() {
         <AuthScreen 
           onVoiceSuccess={handleVoiceSuccess} 
           onUsernameSuccess={handleUsernameSuccess} 
+          onVipCheck={handleVipCheck}
         />
       )}
-      {step === 'FORM' && <DetailsForm onSubmit={handleFormComplete} />}
+      {step === 'FORM' && (
+        <DetailsForm 
+          prefilledMobile={prefilledMobile} 
+          userType={authType}
+          onSubmit={handleFormComplete} 
+        />
+      )}
       {step === 'VIP_HOME' && <VIPHome />}
       {step === 'STANDARD_HOME' && <StandardHome />}
     </div>
