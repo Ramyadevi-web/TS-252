@@ -1,0 +1,30 @@
+.home-screen {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.vip-bg {
+  background: radial-gradient(circle, #1a0505 0%, #000000 100%);
+}
+
+.home-content h1 {
+  font-size: 2.5rem;
+  font-weight: 300;
+  letter-spacing: 3px;
+  margin-bottom: 10px;
+}
+
+.home-content p {
+  color: #888;
+  margin-bottom: 30px;
+}
+
+.action-btn {
+  padding: 14px 36px;
+  font-size: 1rem;
+  border-radius: 30px;
+}
