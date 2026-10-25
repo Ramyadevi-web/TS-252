@@ -4,7 +4,7 @@ import AuthScreen from './components/AuthScreen';
 import DetailsForm from './components/DetailsForm';
 import VIPHome from './components/VIPHome';
 import StandardHome from './components/StandardHome';
-import './App.css';
+import './app.css';
 
 export default function App() {
   const [step, setStep] = useState('LOADER'); // LOADER | AUTH | FORM | VIP_HOME | STANDARD_HOME
