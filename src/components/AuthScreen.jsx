@@ -72,7 +72,7 @@ export default function AuthScreen({ onVoiceSuccess, onUsernameSuccess }) {
       <div className="auth-card">
         <h2>TS252</h2>
         <div className="red-underline"></div>
-        <h3>Saadhanam Kalithu undoo?</h3>
+        <h3>Sadanam kayyil indo?</h3>
 
         {!mode ? (
           <div className="auth-options">
