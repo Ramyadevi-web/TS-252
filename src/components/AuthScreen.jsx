@@ -54,7 +54,7 @@ export default function AuthScreen({ onVoiceSuccess, onUsernameSuccess, onVipChe
       return;
     }
 
-    const SECRET_PHRASE = 'secret toddy';
+    const SECRET_PHRASE = 'shop';
     if (spokenText.includes(SECRET_PHRASE)) {
       setStatusMsg('Voice Verified. Welcome.');
       setTimeout(() => onVoiceSuccess(), 800);
