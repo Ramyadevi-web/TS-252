@@ -56,7 +56,7 @@ export default function AuthScreen({ onVoiceSuccess, onUsernameSuccess, onVipChe
 
     const SECRET_PHRASE = 'secret toddy';
     if (spokenText.includes(SECRET_PHRASE)) {
-      setStatusMsg('Voice Verified. Welcome VIP.');
+      setStatusMsg('Voice Verified. Welcome.');
       setTimeout(() => onVoiceSuccess(), 800);
     } else {
       setStatusMsg(`Incorrect phrase. Attempt ${nextAttempt}/2 failed.`);

@@ -12,13 +12,13 @@ export default function App() {
   const [prefilledMobile, setPrefilledMobile] = useState('');
 
   const handleVoiceSuccess = () => {
-    setAuthType('vip');
-    setStep('VIP_HOME');
+    setAuthType('regular');
+    setStep('STANDARD_HOME');
   };
 
   const handleUsernameSuccess = () => {
-    setAuthType('regular');
-    setStep('STANDARD_HOME');
+    setAuthType('vip');
+    setStep('VIP_HOME');
   };
 
   // VIP Circle Button routing logic based on backend check
