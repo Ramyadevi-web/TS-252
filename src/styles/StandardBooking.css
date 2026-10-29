@@ -1,0 +1,86 @@
+.std-book-container {
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(circle, #0f0f0f 0%, #000000 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.std-book-card {
+  background: #0d0d0d;
+  border: 1px solid #333;
+  padding: 40px;
+  border-radius: 12px;
+  width: 400px;
+  text-align: center;
+}
+
+.std-book-card h2 {
+  font-weight: 300;
+  letter-spacing: 2px;
+  margin-bottom: 4px;
+}
+
+.std-book-card p {
+  font-size: 0.85rem;
+  color: #777;
+  margin-bottom: 24px;
+}
+
+.std-book-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.std-book-form input, .std-book-form select {
+  background: #141414;
+  border: 1px solid #333;
+  padding: 12px;
+  border-radius: 6px;
+  color: #fff;
+  outline: none;
+}
+
+.std-book-form input:focus, .std-book-form select:focus {
+  border-color: #d32f2f;
+}
+
+.success-msg {
+  padding: 20px 0;
+}
+
+.success-msg h3 {
+  color: #4caf50;
+  margin-bottom: 8px;
+}
+
+.btn-red {
+  background: #d32f2f;
+  color: #fff;
+  border: none;
+  padding: 14px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.2s;
+}
+
+.btn-red:hover {
+  background: #b71c1c;
+}
+
+.btn-back {
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  font-size: 0.85rem;
+  margin-top: 20px;
+}
+
+.btn-back:hover {
+  color: #fff;
+}

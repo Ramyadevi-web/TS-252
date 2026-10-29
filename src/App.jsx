@@ -4,44 +4,53 @@ import AuthScreen from './components/AuthScreen.jsx';
 import DetailsForm from './components/DetailsForm.jsx';
 import VIPHome from './components/VIPHome.jsx';
 import StandardHome from './components/StandardHome.jsx';
+import VIPReservation from './components/VIPReservation.jsx';
+import StandardBooking from './components/StandardBooking.jsx';
 import './app.css';
 
 export default function App() {
-  const [step, setStep] = useState('LOADER'); // LOADER | AUTH | FORM | VIP_HOME | STANDARD_HOME
+  // Steps: LOADER | AUTH | FORM | VIP_HOME | STANDARD_HOME | VIP_RESV | STANDARD_BOOK
+  const [step, setStep] = useState('LOADER'); 
   const [authType, setAuthType] = useState('regular'); // 'vip' | 'regular'
   const [prefilledMobile, setPrefilledMobile] = useState('');
 
+  // 1. Voice Route -> Standard Home (per your rule)
   const handleVoiceSuccess = () => {
     setAuthType('regular');
     setStep('STANDARD_HOME');
   };
 
+  // 2. Username Route -> Standard Home (per your rule)
   const handleUsernameSuccess = () => {
-    setAuthType('vip');
-    setStep('VIP_HOME');
+    setAuthType('regular');
+    setStep('STANDARD_HOME');
   };
 
-  // VIP Circle Button routing logic based on backend check
+  // 3. VIP Circle Button Route -> VIP Home (per your rule)
   const handleVipCheck = (identifier, isRegistered) => {
     setAuthType('vip');
     setPrefilledMobile(identifier);
 
     if (isRegistered) {
-      // Direct access to VIP Home for registered members
       setStep('VIP_HOME');
     } else {
-      // Route unregistered members to Details Form registration
       setStep('FORM');
     }
   };
 
+  // 4. Form Completion Route based on user type
   const handleFormComplete = () => {
     setStep(authType === 'vip' ? 'VIP_HOME' : 'STANDARD_HOME');
   };
 
   return (
     <div className="app-container">
-      {step === 'LOADER' && <ToddyLoader onComplete={() => setStep('AUTH')} />}
+      {/* 1. Loader */}
+      {step === 'LOADER' && (
+        <ToddyLoader onComplete={() => setStep('AUTH')} />
+      )}
+
+      {/* 2. Gatekeeper / Authentication */}
       {step === 'AUTH' && (
         <AuthScreen 
           onVoiceSuccess={handleVoiceSuccess} 
@@ -49,6 +58,8 @@ export default function App() {
           onVipCheck={handleVipCheck}
         />
       )}
+
+      {/* 3. Unregistered User Details Form */}
       {step === 'FORM' && (
         <DetailsForm 
           prefilledMobile={prefilledMobile} 
@@ -56,8 +67,22 @@ export default function App() {
           onSubmit={handleFormComplete} 
         />
       )}
-      {step === 'VIP_HOME' && <VIPHome />}
-      {step === 'STANDARD_HOME' && <StandardHome />}
+
+      {/* 4. VIP Flow (VIP Home -> VIP Reservation) */}
+      {step === 'VIP_HOME' && (
+        <VIPHome onNavigateResv={() => setStep('VIP_RESV')} />
+      )}
+      {step === 'VIP_RESV' && (
+        <VIPReservation onBack={() => setStep('VIP_HOME')} />
+      )}
+
+      {/* 5. Standard Flow (Standard Home -> Standard Booking) */}
+      {step === 'STANDARD_HOME' && (
+        <StandardHome onNavigateBook={() => setStep('STANDARD_BOOK')} />
+      )}
+      {step === 'STANDARD_BOOK' && (
+        <StandardBooking onBack={() => setStep('STANDARD_HOME')} />
+      )}
     </div>
   );
 }
